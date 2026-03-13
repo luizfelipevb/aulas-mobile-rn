@@ -1,41 +1,33 @@
-import { useEffect, useState } from "react";
-import './App.css'
-import Header from "./components/Header"
-import Title from "./components/Title"
+import { useState } from "react";
+import Button from "./components/Button";
 
 export default function App() {
     const [contador, setContador] = useState(0);
-    const [valorBtc, setValorBtc] = useState();
-
-    useEffect(() => {
-        fetch("https://economia.awesomeapi.com.br/json/last/BTC")
-            .then(res => res.json())
-            .then(json => setValorBtc(json.BTCBRL.bid))
-            .catch(console.error)
-    }, []);//Array de dependências - Adicionar estados ou deixar vazio
+    const [atividade, setAtividade] = useState();
 
     function incrementar() {
-        if (contador == 12) {
-            setContador(contador + 2);
-
-            return
-        }
-
         setContador(contador + 1);
     }
 
+    function atualizarAtividade(atividade) {
+        setAtividade(atividade)
+    }
+
     return (
-        <main>
-            <Header />
-            <Title titulo="Titulo"
-                subtitulo="Sub-titulo" />
-            {/* <p>
-                Valor do contador: {contador}
-            </p> */}
-            <p>
-                Valor do BTC: {valorBtc}
-            </p>
-            {/* <button onClick={incrementar} >Incrementar</button> */}
-        </main>
+        <div>
+            <div>
+                <h1>
+                    Lista Atividades
+                </h1>
+                <label>Insira Atividade</label>
+                <input type="text" value={atividade}
+                    onChange={evento => atualizarAtividade(evento.target.value)} />
+            </div>
+            <div>
+                Valor do meu contador: {contador}
+                <Button funcao={incrementar}
+                    btnText="Clicar" />
+            </div>
+        </div>
     )
 }
