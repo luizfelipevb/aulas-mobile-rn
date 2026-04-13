@@ -37,4 +37,4 @@ jobs:
           file: ./primeirobi/exemplosaula/exemplo-carrinho/Dockerfile # Caminho do Dockerfile
           push: true # Envia para o registry
           # Mude "seu-usuario" para o seu usuário real abaixo!
-          tags: seu-usuario/exemplo-carrinho:latest
+          tags: sandrolax/exemplo-carrinho:latest
