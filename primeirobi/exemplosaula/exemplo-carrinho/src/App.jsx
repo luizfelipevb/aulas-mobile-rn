@@ -46,7 +46,7 @@ export default function App() {
     return (
         <div>
             <div>
-                <h1>Carrinho Show</h1>
+                <h1>Carrinho Show - Loja Sandrolaxx</h1>
 
                 <div>
                     <label htmlFor="name">Nome Produto</label>
