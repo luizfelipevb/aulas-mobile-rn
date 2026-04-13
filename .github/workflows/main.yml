@@ -25,11 +25,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Passo 3: O robô prepara o ambiente para o Build
-      - name: Configurar o Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # Passo 4: O robô executa o Build e faz o Push automaticamente
+      # Passo 3: O robô executa o Build e faz o Push automaticamente
       - name: Build e Push da Imagem
         uses: docker/build-push-action@v5
         with:
