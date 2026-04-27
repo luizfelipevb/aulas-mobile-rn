@@ -23,7 +23,24 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // --- Qualidade geral ---
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'eqeqeq': ['error', 'always'],
+      'no-var': 'error',
+      'prefer-const': ['error', { destructuring: 'all' }],
+      'no-duplicate-imports': 'error',
+
+      // --- Boas práticas React ---
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+
+      // --- Estilo de código ---
+      'curly': ['error', 'all'],
+      'no-multiple-empty-lines': ['warn', { max: 1, maxEOF: 0 }],
+      'no-trailing-spaces': 'warn',
+      'semi': ['error', 'never'],
+      'quotes': ['error', 'single', { avoidEscape: true }],
     },
   },
 ])

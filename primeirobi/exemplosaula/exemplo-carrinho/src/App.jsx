@@ -1,4 +1,9 @@
 import { useState } from "react";
+import {
+    adicionarProduto,
+    removerItem as removerItemDaLista,
+    adicionarQuantidade as adicionarQuantidadeDaLista,
+} from "./utils/carrinho";
 
 export default function App() {
     const [listaCarrinho, setListaCarrinho] = useState([]);
@@ -6,41 +11,19 @@ export default function App() {
     const [quantidade, setQuantidade] = useState(0);
 
     function adicionar() {
-        if (nome == "" || quantidade == 0) {
-            return;
-        }
-
-        const produto = {
-            "id": listaCarrinho.length + 1,
-            nome,
-            quantidade
-        }
-
-        setListaCarrinho([...listaCarrinho, produto]);
+        const novaLista = adicionarProduto(listaCarrinho, nome, quantidade);
+        if (novaLista === listaCarrinho) return;
+        setListaCarrinho(novaLista);
         setNome("");
-        setQuantidade(0)
+        setQuantidade(0);
     }
 
     function removerItem(indiceProduto) {
-        const listaFiltrada = listaCarrinho
-            .filter(item => item.id != indiceProduto);
-
-        setListaCarrinho(listaFiltrada);
+        setListaCarrinho(removerItemDaLista(listaCarrinho, indiceProduto));
     }
 
     function adicionarQuantidade(indiceProduto) {
-        const listaProdutosAtualizada = listaCarrinho
-            .map(produto => {
-                let quantidadeAtual = Number(produto.quantidade);
-                            //= =
-                if (produto.id == indiceProduto) {
-                    return { ...produto, quantidade: quantidadeAtual + 1 }
-                }
-
-                return produto;
-            })
-
-        setListaCarrinho(listaProdutosAtualizada);
+        setListaCarrinho(adicionarQuantidadeDaLista(listaCarrinho, indiceProduto));
     }
 
     return (

@@ -1,6 +1,6 @@
 name: Deploy do Exemplo Carrinho para o Docker Hub
 
-# Aciona o robô toda vez que fizermos push na branch main
+# Aciona o robô em push e pull request na branch main/master
 on:
   push:
     branches:
@@ -8,10 +8,73 @@ on:
       - master
     paths:
       - 'primeirobi/exemplosaula/exemplo-carrinho/**'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'primeirobi/exemplosaula/exemplo-carrinho/**'
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: primeirobi/exemplosaula/exemplo-carrinho
+
+    steps:
+      # Passo 1: Baixa o código
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # Passo 2: Configura o Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: primeirobi/exemplosaula/exemplo-carrinho/package-lock.json
+
+      # Passo 3: Instala as dependências
+      - name: Instalar dependências
+        run: npm ci
+
+      # Passo 4: Executa o ESLint
+      - name: Rodar ESLint
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint # Só roda os testes se o lint passar
+    defaults:
+      run:
+        working-directory: primeirobi/exemplosaula/exemplo-carrinho
+
+    steps:
+      # Passo 1: Baixa o código
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # Passo 2: Configura o Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: primeirobi/exemplosaula/exemplo-carrinho/package-lock.json
+
+      # Passo 3: Instala as dependências
+      - name: Instalar dependências
+        run: npm ci
+
+      # Passo 4: Executa os testes unitários com Vitest
+      - name: Rodar testes unitários
+        run: npm test
+
   build-e-push:
-    runs-on: ubuntu-latest # O computador que o robô vai usar
+    runs-on: ubuntu-latest
+    needs: [lint, test] # Só faz deploy se lint E testes passarem
+    if: github.event_name == 'push' # Só faz deploy em push, não em PR
 
     steps:
       # Passo 1: O robô baixa o seu código
