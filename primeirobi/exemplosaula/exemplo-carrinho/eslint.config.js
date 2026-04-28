@@ -40,7 +40,7 @@ export default defineConfig([
       'no-multiple-empty-lines': ['warn', { max: 1, maxEOF: 0 }],
       'no-trailing-spaces': 'warn',
     //   'semi': ['error', 'never'],
-      'quotes': ['error', 'single', { avoidEscape: true }],
+    //   'quotes': ['error', 'single', { avoidEscape: true }],
     },
   },
 ])

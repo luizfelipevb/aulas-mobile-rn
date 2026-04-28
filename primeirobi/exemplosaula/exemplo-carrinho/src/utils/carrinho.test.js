@@ -100,8 +100,8 @@ describe('adicionarQuantidade', () => {
 // passam pela verificação e são adicionadas à lista.
 // Para corrigir, a regra deveria ser `quantidade <= 0`.
 //
-// it('não deve adicionar produto com quantidade negativa', () => {
-//   const resultado = adicionarProduto([], 'Produto', -1)
-//   expect(resultado).toHaveLength(0) // falha: retorna lista com 1 item
-// })
+it('não deve adicionar produto com quantidade negativa', () => {
+  const resultado = adicionarProduto([], 'Produto', -1)
+  expect(resultado).toHaveLength(0) // falha: retorna lista com 1 item
+})
 // ─────────────────────────────────────────────
