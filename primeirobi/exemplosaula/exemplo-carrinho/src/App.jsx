@@ -12,7 +12,9 @@ export default function App() {
 
     function adicionar() {
         const novaLista = adicionarProduto(listaCarrinho, nome, quantidade);
-        if (novaLista === listaCarrinho) return;
+        if (novaLista === listaCarrinho) {
+            return;
+        };
         setListaCarrinho(novaLista);
         setNome("");
         setQuantidade(0);

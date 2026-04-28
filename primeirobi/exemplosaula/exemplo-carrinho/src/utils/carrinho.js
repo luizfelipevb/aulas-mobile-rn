@@ -7,7 +7,7 @@
  * @returns {Array} nova lista ou a lista original caso inválido
  */
 export function adicionarProduto(lista, nome, quantidade) {
-  if (nome === '' || quantidade == 0) {
+  if (nome === '' || quantidade === 0) {
     return lista
   }
 
@@ -27,7 +27,7 @@ export function adicionarProduto(lista, nome, quantidade) {
  * @returns {Array} nova lista sem o item
  */
 export function removerItem(lista, id) {
-  return lista.filter(item => item.id != id)
+  return lista.filter(item => item.id !== id)
 }
 
 /**
@@ -38,7 +38,7 @@ export function removerItem(lista, id) {
  */
 export function adicionarQuantidade(lista, id) {
   return lista.map(produto => {
-    if (produto.id == id) {
+    if (produto.id === id) {
       return { ...produto, quantidade: Number(produto.quantidade) + 1 }
     }
     return produto
